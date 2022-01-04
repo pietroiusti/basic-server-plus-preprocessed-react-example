@@ -1,0 +1,50 @@
+This example shows a basic nodejs server serving a web page with some
+react, using babel for JSX preprocessing.
+
+server.js serves the files in the public folder.
+
+public/index.html includes a dom "container":
+#+begin_src html
+  <div id="like_button_container"></div>
+#+end_src
+which is where the react stuff will be displayed.
+
+This loads react:
+#+begin_src html
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <!-- <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script> -->
+  <!-- <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script> -->
+#+end_src
+
+This loads the react component called LikeButton defined in public/like_button.js.
+#+begin_src html
+  <!-- Load our React component. -->
+  <script src="./like_button.js"></script>
+#+end_src
+
+public/like_button.js is generated using babel; that is, we write a
+file in the src folder using jsx (and newer js features), and babel
+automatically transforms them into something the browswer can
+understand.
+
+In our example, babel takes /src/public/like_button.js and creates
+/public/like_button.js.
+
+To make bable do its job, we run:
+#+begin_src
+npx babel --watch src --out-dir . --presets react-app/prod
+#+end_src
+
+To install babel:
+#+begin_src
+npm install babel-cli@6 babel-preset-react-app@3
+#+end_src
+(See: https://reactjs.org/docs/add-react-to-a-website.html)
+
+To run the server:
+#+begin_src
+node server.js
+#+end_src
